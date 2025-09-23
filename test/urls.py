@@ -1,7 +1,8 @@
 from django.urls import path
+from test import views
 
 urlpatterns = [
-    path(''),
-    path('create/'),
-    path('read/1/')
+    path('', views.index),
+    path('create/',views.create),
+    path('read/1/',views.read)
 ]
