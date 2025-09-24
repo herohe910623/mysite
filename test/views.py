@@ -9,7 +9,7 @@ topics = [
 
 
 # Create your views here.
-def HTMLTemplate():
+def HTMLTemplate(articleTag):
     global topics
     ol = ''  ##변수 생성
     for topic in topics:
@@ -17,24 +17,34 @@ def HTMLTemplate():
     return f'''
     <html>
     <body>
-    <h1>Django</h1>
+    <h1><a href='/'>Django</a></h1>
     <ol>
         {ol}
     </ol>
-    <h2>Welcome</h2>
-    Hello Django!
+        {articleTag}
     </body>
     </html>
     '''
 
 
 def index(request):
-    return HttpResponse(HTMLTemplate())
+    article = '''
+    <h2>Welcome</h2>
+    Hello Django!
+    '''
+    return HttpResponse(HTMLTemplate(article))
 
 
 def create(request):
-    return HttpResponse("Create!")
+    article = '''
+    <h2>Create</h2>
+    '''
+    return HttpResponse(article)
 
 
 def read(request, id):
-    return HttpResponse("Read!" + id)
+    global topics
+    for topic in topics:
+        if topic["id"] == int(id):
+            article = f'<h2>{topic["title"]}</h2>{topic["body"]}'
+    return HttpResponse(HTMLTemplate(article))
