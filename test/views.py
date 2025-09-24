@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+from django.views.decorators.csrf import csrf_exempt
 import random
 
+nextId= 4
 topics = [
     {'id': 1, 'title': 'routing', 'body': 'Routing is...'},
     {'id': 2, 'title': 'view', 'body': 'view is...'},
@@ -22,6 +24,9 @@ def HTMLTemplate(articleTag):
         {ol}
     </ol>
         {articleTag}
+        <ul>
+            <li><a href="/create/">Create</a></li>
+        </ul>
     </body>
     </html>
     '''
@@ -34,12 +39,27 @@ def index(request):
     '''
     return HttpResponse(HTMLTemplate(article))
 
-
+@csrf_exempt
 def create(request):
-    article = '''
-    <h2>Create</h2>
-    '''
-    return HttpResponse(article)
+    global nextId
+    if request.method == 'GET':
+        article = '''
+        <form action="/create/" method="post">
+        <p><input type="text" name="title" placeholder="title"></p>
+        <p><input type="textarea" name="body" placeholder="body"></p>
+        <p><input type="submit"></p>
+        </form>
+        '''
+
+        return HttpResponse(HTMLTemplate(article))
+    elif request.method == 'POST':
+        title = request.POST['title']
+        body = request.POST['body']
+        newTopic = {"id": nextId, "title": title, "body": body}
+        topics.append(newTopic)
+        url = '/read/'+str(nextId)
+        nextId += 1
+        return redirect(url)
 
 
 def read(request, id):
