@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+# from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Post
+
+class PostDetail(DetailView):
+    model = Post
 
 class PostList(ListView):
     model = Post
@@ -8,7 +11,7 @@ class PostList(ListView):
     # template_name = 'blog/index.html' CBV 사용하여 주석처리 ? 인식이 된다? 이름을 찾아간다 post_list.html
 
 # Create your views here.
-# def index(request):
+# def index(request): CBV로 만들기 위해 FBV 함수 주석처리
 #     return render(request, 'blog/index.html',)
 
 # def index(request):
@@ -22,13 +25,13 @@ class PostList(ListView):
 #         }
 #     )
 
-def single_post_page(request, pk):
-    post = Post.objects.get(pk=pk)
-
-    return render(
-        request,
-        'blog/single_post_page.html',
-        {
-            'post':post,
-        }
-    )
+# def single_post_page(request, pk): CBV 로 만들기 위해 FBV 주석처리
+#     post = Post.objects.get(pk=pk)
+#
+#     return render(
+#         request,
+#         'blog/single_post_page.html',
+#         {
+#             'post':post,
+#         }
+#     )
