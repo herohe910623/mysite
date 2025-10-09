@@ -1,5 +1,9 @@
 venv/
+
+#intellij
 .idea/
+migrations/
+
 # Django suff:
 *.log
 
