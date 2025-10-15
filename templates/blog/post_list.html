@@ -5,11 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Blog</title>
-
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg nvbar-ligth bg-light">
+        <div class="container">
+            <a class="nvbar-brand" href="./index.html">Do It Django</a>
+
+        </div>
+    </nav>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-8 col-lg-9">
+                <h1>Blog</h1>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <h3>Search</h3>
+                <h3>Categories</h3>
+            </div>
+        </div>
+    </div>
+
+   
     <h1 class="text-primary">Blog</h1>
 {#{% for p in posts %}FBV 방식 주석처리는 이렇게 #}
 {% for p in post_list %}
