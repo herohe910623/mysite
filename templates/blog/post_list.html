@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+</head>
+<body>
+    <h1 class="text-primary">Blog</h1>
+{#{% for p in posts %}FBV 방식 주석처리는 이렇게 #}
+{% for p in post_list %}
+    <hr/>
+    <h2><a href="{{p.get_absolute_url}}">{{ p.title }}</a></h2>
+    <h3>{{ p.created_at }}</h3>
+    <h4>{{ p.content }}</h4>
+{% endfor %}
+</body>
+</html>
