@@ -3,7 +3,7 @@ venv/
 #intellij
 .idea/
 migrations/
-
+_media/
 # Django suff:
 *.log
 
