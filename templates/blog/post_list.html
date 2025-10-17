@@ -1,157 +1,44 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'blog/base.html' %}
 
-<html lang="ko">
+        {% block main_area %}
+            <h1>Blog</h1>
+            {% if post_list.exists %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Blog</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+            {% for p in post_list %}
+            <!-- Blog Post-->
+            <div class="card mb-4">
+                {% if p.head_image %}
+                <img class="card-img-top" src="{{ p.haed_image.url }}" alt="{{ p }} head image">
+                {% else %}
+                <img class="card-img-top" src="https://picsum.photos/seed/{{p.id}}/800/200" alt="random_image">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{p.title}}</h2>
+                    {% if p.hook_text %}
+                    <h5 class="text-muted">{{p.hook_text}}</h5>
+                    {% endif %}
+                    <p class="card-text">{{p.content | truncatewords:45}}</p>
+                    <a href="{{p.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{p.created_at}} by
+                    <a href="#">작성자명 쓸 위치 (개발예정)</a>
+                    <!-- Blog Post-->
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h3>아직 게시물이 없습니다.</h3>
+            {% endif %}
 
-<body>
-<!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-    <div class="container">
-        <a class="navbar-brand" href="/blog/">Do It Django</a>
-        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button> -->
-        <div class="collapse navbar-collapse" id="navbarNavDropDown">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About Me</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+            <!-- Pagination-->
+            <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
                 </li>
             </ul>
-        </div>
-    </div>
-</nav>
-<!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel"><i class="fas fa-sign-in-alt"></i>&nbsp Log In</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
-                                    class="fab fa-google"></i>&nbsp&nbsp Log in with Google</button>
-                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
-                                    class="far fa-envelope"></i>&nbsp&nbsp Log in With E-mail</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
-                                    class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container my-3">
-        <div class="row">
-            <div class="col-md-8 col-lg-9" id="main_area">
-                <h1>Blog</h1>
-                {% if post_list.exists %}
-
-                {% for p in post_list %}
-                <!-- Blog Post-->
-                <div class="card mb-4">
-                    {% if p.head_image %}
-                    <img class="card-img-top" src="{{ p.haed_image.url }}" alt="{{ p }} head image">
-                    {% else %}
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{p.id}}/800/200" alt="random_image">
-                    {% endif %}
-                    <div class="card-body">
-                        <h2 class="card-title">{{p.title}}</h2>
-                        {% if p.hook_text %}
-                        <h5 class="text-muted">{{p.hook_text}}</h5>
-                        {% endif %}
-                        <p class="card-text">{{p.content | truncatewords:45}}</p>
-                        <a href="{{p.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on {{p.created_at}} by
-                        <a href="#">작성자명 쓸 위치 (개발예정)</a>
-                        <!-- Blog Post-->
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                    <h3>아직 게시물이 없습니다.</h3>
-                {% endif %}
-                <div class="card mb-4">
-
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3">
-
-                <!-- Search Widget-->
-                <div class="card my-4">
-                    <h5 class="card-header">Search</h5>
-
-                </div>
-
-                <div class="card my-4">
-                    <h5 class="card-header">Categories</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pagination-->
-    <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
-        </li>
-        <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
-        </li>
-    </ul>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-        crossorigin="anonymous"></script>
-
-    <h1 class="text-primary">Blog</h1>
-    {#{% for p in posts %}FBV 방식 주석처리는 이렇게 #}
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">
-                Copyright &copy; Do It Django A to Z
-            </p>
-        </div>
-        <!-- /.container-->
-    </footer>
-
-</body>
-
-</html>
+        {% endblock %}

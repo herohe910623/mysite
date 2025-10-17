@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block head_title %}Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container">
+            <a class="navbar-brand" href="/blog/">Do It Django</a>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropDown">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">About Me</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel"><i class="fas fa-sign-in-alt"></i>&nbsp Log In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
+                                    class="fab fa-google"></i>&nbsp&nbsp Log in with Google</button>
+                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
+                                    class="far fa-envelope"></i>&nbsp&nbsp Log in With E-mail</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i
+                                    class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-8 col-lg-8" id="main_area">
+                {% block main_area %}
+                {% endblock %}
+            </div>
+            
+            <!-- Side widgets-->
+            <div class="col-md-4 col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..."
+                                aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Web Design</a></li>
+                                    <li><a href="#!">HTML</a></li>
+                                    <li><a href="#!">Freebies</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">JavaScript</a></li>
+                                    <li><a href="#!">CSS</a></li>
+                                    <li><a href="#!">Tutorials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Side Widget</div>
+                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to
+                        use,
+                        and feature the Bootstrap 5 card component!
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">
+                Copyright &copy; Do It Django A to Z
+            </p>
+        </div>
+        <!-- /.container-->
+    </footer>
+
+</body>
+
+</html>
