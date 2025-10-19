@@ -6,7 +6,12 @@ from .models import Post
 class TestView(TestCase):
     def setUp(self):
         self.client = Client()
-    
+
+    def navbar_test(self,soup):
+        navbar = soup.nav
+        self.assertIn('Blog', navbar.text)
+        self.assertIn('About Me', navbar.text)
+
     def test_post_list(self):
         # 1.1 포스트 목록 페이지를 가져온다.
         response = self.client.get('/blog/')
