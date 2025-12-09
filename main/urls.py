@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')),
     # path('', include('test.urls')),
-    path('', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     # path('',include('single_pages.urls')),
 ]
 
