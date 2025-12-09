@@ -16,7 +16,9 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     #author : 추후 작성 예정
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # 포스트의 작성자가 데이터베이스에서 삭제 되었을 때 작성자명을 빈 칸으로 둔다.
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}'
